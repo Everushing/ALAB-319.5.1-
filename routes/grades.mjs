@@ -1,6 +1,29 @@
 import express from "express";
-import db from "../db/conn.mjs";
-import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
+
+
+
+const mongoURI ='mongodb://atlas-sql-664735d1fdd17c52af737bc2-e4ptl.a.query.mongodb.net/sample_mflix?ssl=true&authSource=admin';
+await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+const GradeSchema = new mongoose.Schema({
+  learner_id: {
+    type: Number,
+    required: true
+  },
+  class_id: {
+    type: Number,
+    required: true
+  },
+  scores: {
+    type: [Number],
+    default: []
+  },
+
+});
+
+const GradeModel = mongoose.model("Grade", GradeSchema);
 
 const router = express.Router();
 
